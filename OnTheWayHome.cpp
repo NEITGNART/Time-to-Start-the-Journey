@@ -4,6 +4,8 @@ using namespace std;
 
 int grid[100][100];
 
+
+// top_down
 int Grid(int x, int y) {
 	
 	
@@ -21,18 +23,29 @@ int Grid(int x, int y) {
 
 int main(void) {
 	
-	memset(grid, -1, sizeof(grid));	
-	grid[0][0] = 1;
 	
-	cout << Grid(6, 9) << endl;
+	// bottom up
+	memset(grid, 0, sizeof(grid));
+	for (int i = 0; i <= 9; ++i) grid[0][i] = 1;
+	for (int j = 0; j <= 6; ++j) grid[j][0] = 1;
+	for (int i = 1; i <= 6; ++i) {
+		for (int j = 1; j <= 9; ++j) {
+			grid[i][j] = grid[i-1][j] + grid[i][j-1];
+		}
+	}
 	
 	for (int i = 0; i <= 6; ++i) {
 		for (int j = 0; j <= 9; ++j) {
-			cout << setw(4) <<  grid[i][j] << " ";
+			cout << setw(4) << grid[i][j] << " ";
 		}
 		cout << endl;
 	}
 	
+	cout << grid[6][9] << endl;
+	
+	// But dynamic programing is too weak when comparision with mathematics
+	// We have formula : Number of way is equal = C(x+y,x)
+		
 	
 	return 0;
 }
