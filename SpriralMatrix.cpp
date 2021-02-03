@@ -80,3 +80,47 @@ int main(void) {
 
     return 0;
 }
+
+// ===================================================== Genius =========================================
+
+#include <iostream>
+#include <iomanip>
+#include <array>
+
+using namespace std;
+
+int grid[16][16];
+int a[16][16];
+array<int, 4> dx{0, 1, 0, -1};
+array<int, 4> dy{1, 0, -1, 0};
+
+int main(void) {
+
+    
+    int N{4}, M{4};
+    int start = 1;
+    for(int i = 0; i < N; ++i) {
+        for(int j = 0; j < M; ++j) {
+            grid[i][j] = start++;
+        }
+    }
+
+    int n = N * M;
+    
+    int x{0}, y{0};
+    int dir = 0;
+    for(int k = 0; k < n; ++k) {
+        cout << grid[x][y] << ' ';
+        grid[x][y] = 0;
+        int i = x + dx[dir], j = y + dy[dir];
+        if (i < 0 || i >= N || j < 0 || j >= M || !grid[i][j]) {
+            dir = (dir + 1) % 4;
+            i = x + dx[dir], j = y + dy[dir];
+            cout << endl;
+        }
+        x = i;
+        y = j;
+    }
+
+    return 0;
+}
